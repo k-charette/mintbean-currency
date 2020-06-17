@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import './styles/app.css'
 import CurrencyRow from './components/CurrencyRow'
 import { BsArrowUpDown } from "react-icons/bs";

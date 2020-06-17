@@ -1,7 +1,5 @@
 import React from 'react'
-import CurrencyRow from './CurrencyRow'
-import Rates from './Rates'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Nav = () => {
     return (
