@@ -6,8 +6,22 @@ import CurrencyRow from './components/CurrencyRow'
 const API_URL = 'https://api.exchangerate-api.com/v4/latest/USD'
 
 const App = () => {
-
   const [currencyOptions, setCurrencyOptions] = useState([])
+  const [fromCurrency, setFromCurrency] = useState()
+  const [toCurrency, setToCurrency] = useState()
+  const [exchangeRate, setExchangeRate] = useState()
+  const [amount, setAmount] = useState(1)
+  const [amountFromCurrency, setAmountFromCurrency] = useState(true)
+
+  let toAmount, fromAmount
+
+  if (amountFromCurrency) {
+    fromAmount = amount
+    toAmount = amount * exchangeRate
+  } else {
+    toAmount = amount
+    fromAmount = amount / exchangeRate
+  }
 
   useEffect(() => {
     fetch(API_URL)
@@ -22,9 +36,23 @@ const App = () => {
     })
     .then(response => response.json())
     .then(data => {
-      setCurrencyOptions([data.base, ...Object.keys(data.rates)])
+      const currency = Object.keys(data.rates)[16]
+      setCurrencyOptions([...Object.keys(data.rates)])
+      setFromCurrency(data.base)
+      setToCurrency(currency)
+      setExchangeRate(data.rates[currency].toFixed(2))
     })
   }, [])
+
+  const handleFromAmountChange = (e) => {
+    setAmount(e.target.value)
+    setAmountFromCurrency(true)
+  }
+
+  const handleToAmountChange = (e) => {
+    setAmount(e.target.value)
+    setAmountFromCurrency(false)
+  }
 
   return (
     <>
@@ -33,10 +61,18 @@ const App = () => {
             <div className='m-2 py-5'>
               <CurrencyRow 
                 currencyOptions={currencyOptions}
+                selectedCurrency={fromCurrency}
+                handleCurrencyChange={e => setFromCurrency(e.target.value)}
+                amount={fromAmount}
+                onChangeAmount={handleFromAmountChange}
               />
                <div className='w-full my-2 py-2'><BsArrowUpDown className='text-3xl m-auto hover:opacity-50'/></div>
               <CurrencyRow 
                 currencyOptions={currencyOptions}
+                selectedCurrency={toCurrency}
+                handleCurrencyChange={e => setToCurrency(e.target.value)}
+                amount={toAmount}
+                onChangeAmount={handleToAmountChange}
               />
             </div>
           </div>
