@@ -12,7 +12,7 @@ const App = () => {
     <> 
       <Switch>
         <div className='flex flex-wrap justify-center items-center text-center min-h-screen text-gray-900'>
-          <div className='block sm:w-auto md:w-1/4 pb-10 m-5 bg-gray-100 font-medium rounded-md'>
+          <div className='sm:w-auto md:w-1/4 pb-10 m-5 bg-gray-100 font-medium rounded-md'>
             <Nav />
             <Route exact path='/' component={Converter}/>
             <Route path='/rates' component={Rates}/>

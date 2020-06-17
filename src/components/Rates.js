@@ -42,13 +42,11 @@ const Rates = () => {
                                 ))
                             }
                         </select>
-                    <div className='p-2 m-2'>
+                    <div className='p-2 m-2 grid grid-cols-3 gap-2'>
                         {rates.map(([key, value]) => (
-                            <ul className='p-2'>
-                                <li>
-                                    {key} {value.toFixed(2)}
-                                </li>
-                            </ul>
+                            <div className='text-sm font-bold'>
+                                {key} {value.toFixed(2)}
+                            </div>
                         ))}
                     </div>
                 </div>
